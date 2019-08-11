@@ -5,7 +5,7 @@
 
 #define write_aes_register(addr, variable)                                     \
   asm volatile(".byte " #addr "\n"                                             \
-               ".byte 0x01\n"                                                  \
+               ".byte 0x81\n"                                                  \
                ".byte 0b10000000+(%0-0x100)\n"                                 \
                ".byte 0b01001000\n"                                            \
                :                                                               \
@@ -13,13 +13,13 @@
 
 #define read_aes_register(addr, variable)                                      \
   asm volatile(".byte " #addr "\n"                                             \
-               ".byte 0x01\n"                                                  \
+               ".byte 0x81\n"                                                  \
                ".byte 0b00000000+(%0-0x100)\n"                                 \
                ".byte 0b01001000\n"                                            \
                : "=r"(variable));
 
-#define GETU32(p) ntohl(*((u32 *)(p)))
-#define SETU32(p, v) (*((u32 *)(p))) = htonl((v))
+#define GETU32(p) (*((u32 *)(p)))
+#define SETU32(p, v) (*((u32 *)(p))) = ((v))
 
 // encrypt(type=1), decrypt(type=0)
 int AES_set_key(const unsigned char *userKey, const int bits, int type) {
