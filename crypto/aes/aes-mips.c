@@ -11,7 +11,7 @@
                :                                                               \
                : "r"(variable));
 
-#define read_aes_registe_bigendianr(addr, variable)                            \
+#define read_aes_register_bigendian(addr, variable)                            \
   asm volatile(".byte " #addr "\n"                                             \
                ".byte 0x81\n"                                                  \
                ".byte 0b00000000+(%0-0x100)\n"                                 \
